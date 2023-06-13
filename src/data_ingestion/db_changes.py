@@ -4,7 +4,7 @@ import psycopg2
 from psycopg2.extensions import register_adapter, AsIs
 from decouple import config
 
-from src.data_ingestion.from_thin_air import get_retaliatory_wine_tariff_months
+from src.data_ingestion.raw_data_collection.from_thin_air import get_retaliatory_wine_tariff_months
 
 
 # create timeseries table if it doesn't already exist
@@ -39,8 +39,6 @@ def update_timeseries_table(table_name, df, columns):
     # add missing columns to the table
     for column in columns:
         data_type = df[column].dtype
-        # if data_type == 'Int64Dtype':
-        #     data_type = pd.Int64Dtype()
 
         if pd.api.types.is_numeric_dtype(data_type):
             cursor.execute(f"""

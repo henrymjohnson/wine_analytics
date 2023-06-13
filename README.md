@@ -22,13 +22,13 @@ wine_research/
 │ ├── TTB/
 │ └── USITC/
 └── src/
-│ ├── apis/
-│ ├── data_ingestion/
-│ ├── data_modeling/
-│ ├── data_visualization/
-│ ├── scripts/
-│ ├── sql/
-└─└── web/
+  ├── apis/
+  ├── data_ingestion/
+  ├── data_modeling/
+  ├── data_visualization/
+  ├── scripts/
+  ├── sql/
+  └── web/
 ```
 
 - `data/`: Contains various data directories including raw data, archive data, and data from different sources.

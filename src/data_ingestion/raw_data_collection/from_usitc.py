@@ -2,9 +2,6 @@ import pandas as pd
 import re
 
 
-# read the excel file into a dictionary of dataframes
-# file_path = '/app/data/USITC/dataweb-queryExport-20230609.xlsx'
-
 # convert wide format to long format
 def _wide_to_long(df, year):
     wide_df = df.copy()

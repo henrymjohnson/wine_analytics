@@ -22,11 +22,11 @@ def process_recent_data(ttb_data_path=ttb_dir_path):
 
     production_data = []
 
-    # Loop through each sheet
+    # loop through each sheet
     for sheetname in wb.sheetnames:
         sheet = wb[sheetname]
         
-        # Headers start on the 8th row.
+        # headers start on the 8th row.
         df = pd.DataFrame(sheet.values)
         df.columns = df.iloc[7]
         df = df.iloc[8:]
@@ -41,14 +41,14 @@ def process_recent_data(ttb_data_path=ttb_dir_path):
                 date_object = datetime.datetime.strptime(date_string, "%B %Y")
                 formatted_date = date_object.strftime("%Y-%m-%d")
                 
-                # Monthly wine production in gallons
+                # monthly wine production in gallons
                 production_value = prod_row[col].values[0]
                 production_data.append((formatted_date, production_value))
 
-    # Convert the list to a DataFrame
+    # convert the list to a DataFrame
     production_df = pd.DataFrame(production_data, columns=['month', 'production'])
 
-    # Let's fill the old datapoints with any missing values
+    # fill the old datapoints with any missing values
     try:
         old_df = pd.read_excel(ttb_data_path + 'Monthly Production from TTB Wine Statistics 2008 to Present.xlsx')
     except Exception as e:
@@ -66,7 +66,7 @@ def process_recent_data(ttb_data_path=ttb_dir_path):
     result = result.sort_values(by='month', ascending=False)
     result.set_index('month', inplace=True)
 
-    result['date'] = result.index.date  # Add the 'date' column
+    result['date'] = result.index.date  # add the 'date' column
 
     return result
 

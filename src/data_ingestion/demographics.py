@@ -1,4 +1,4 @@
-from src.data_ingestion.from_fred import get_population_data, get_disposable_income_data
+from src.data_ingestion.raw_data_collection.from_fred import get_population_data, get_disposable_income_data
 from src.data_ingestion.db_changes import update_timeseries_table
 
 

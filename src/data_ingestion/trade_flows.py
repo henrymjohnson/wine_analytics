@@ -1,5 +1,5 @@
-from src.data_ingestion.from_thin_air import get_retaliatory_wine_tariff_months
-from src.data_ingestion.from_usitc import get_usitc_data
+from src.data_ingestion.raw_data_collection.from_thin_air import get_retaliatory_wine_tariff_months
+from src.data_ingestion.raw_data_collection.from_usitc import get_usitc_data
 from src.data_ingestion.db_changes import update_imports_panel_data, update_exports_panel_data, update_retaliatory_wine_tariffs
 
 
