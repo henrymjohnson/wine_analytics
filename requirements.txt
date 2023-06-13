@@ -1,0 +1,13 @@
+pandas
+numpy
+datetime
+openpyxl
+flask
+flask-cors==3.0.10
+requests
+matplotlib
+python-decouple==3.1
+psycopg2-binary
+pdfminer
+pdfminer.six
+# apache-airflow[slim]==2.6.1
