@@ -1,4 +1,10 @@
 version: '3'
+# volumes:
+#   airflow-dags:
+#     name: airflow-dags
+#   airflow-logs:
+#     name: airflow-logs
+
 services:
   webserver:
     build:
@@ -8,15 +14,12 @@ services:
       - "8080:8080"
     env_file:
       - .env
-    volumes:
-      - .:/app
+    # volumes:
+    #   - airflow-dags:/opt/airflow/dags
+    #   - airflow-logs:/opt/airflow/logs
     depends_on:
       - db
-    environment:
-      - FRED_API_KEY=${FRED_API_KEY}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
+
   db:
     image: postgres
     env_file:
@@ -27,3 +30,19 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
+
+  # airflow:
+  #   image: apache/airflow:2.2.0
+  #   ports:
+  #     - ${AIRFLOW_PORT}:8081
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     - AIRFLOW_HOME=${AIRFLOW_HOME}
+  #     - FERNET_KEY=hjaskdfhjadkshfjakshd
+  #     - EXECUTOR=LocalExecutor
+  #   depends_on:
+  #     - db
+  #   volumes:
+  #     - airflow-dags:/opt/airflow/dags
+  #     - airflow-logs:/opt/airflow/logs

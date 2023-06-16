@@ -13,7 +13,6 @@ def _identify_retaliatory_wine_tariffs():
         if year < current_year or (year == current_year and month <= current_month)
     ]
     is_active = [1 if month >= '2019-10' and month <= '2021-06' else 0 for month in months]
-    print(months[0:5])
     months = pd.to_datetime(months, format='%Y-%m')
 
     return {'date': months, 'retaliatory_wine_tariffs': is_active}

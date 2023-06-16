@@ -121,9 +121,13 @@ def _create_panel_data_tables(connection):
             name VARCHAR(255) NOT NULL,
             type VARCHAR(255),
             source VARCHAR(255),
-            link VARCHAR(255),
-            CONSTRAINT unique_series_name UNIQUE (name)
+            link VARCHAR(255)
         )
+    """)
+
+    cursor.execute("""
+        CREATE UNIQUE INDEX IF NOT EXISTS unique_name_type_combo
+        ON panel_data.series (name, type)
     """)
 
     cursor.execute("""
@@ -205,7 +209,7 @@ def update_imports_panel_data(df):
         cursor.execute("""
             INSERT INTO panel_data.series (name, type, source, link)
             VALUES (%s, %s, %s, %s)
-            ON CONFLICT (name) DO NOTHING
+            ON CONFLICT (name, type) DO NOTHING
         """, (series, 'import', 'usitc', 'https://dataweb.usitc.gov/'))
         connection.commit()
 
@@ -312,7 +316,7 @@ def update_exports_panel_data(df):
         cursor.execute("""
             INSERT INTO panel_data.series (name, type, source, link)
             VALUES (%s, %s, %s, %s)
-            ON CONFLICT (name) DO NOTHING
+            ON CONFLICT (name, type) DO NOTHING
         """, (series, 'export', 'usitc', 'https://dataweb.usitc.gov/'))
         connection.commit()
 
@@ -329,6 +333,7 @@ def update_exports_panel_data(df):
             SELECT id
             FROM panel_data.regions
             WHERE name = %s
+                AND type = 'country'
         """, (region,))
         region_id = cursor.fetchone()[0]
 
