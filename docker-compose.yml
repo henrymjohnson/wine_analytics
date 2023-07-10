@@ -1,9 +1,4 @@
 version: '3'
-# volumes:
-#   airflow-dags:
-#     name: airflow-dags
-#   airflow-logs:
-#     name: airflow-logs
 
 services:
   webserver:
@@ -14,11 +9,9 @@ services:
       - "8080:8080"
     env_file:
       - .env
-    # volumes:
-    #   - airflow-dags:/opt/airflow/dags
-    #   - airflow-logs:/opt/airflow/logs
     depends_on:
       - db
+    command: python src/db_setup.py    # && python src/apis/winetariffs_api.py
 
   db:
     image: postgres
@@ -31,18 +24,3 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
 
-  # airflow:
-  #   image: apache/airflow:2.2.0
-  #   ports:
-  #     - ${AIRFLOW_PORT}:8081
-  #   env_file:
-  #     - .env
-  #   environment:
-  #     - AIRFLOW_HOME=${AIRFLOW_HOME}
-  #     - FERNET_KEY=hjaskdfhjadkshfjakshd
-  #     - EXECUTOR=LocalExecutor
-  #   depends_on:
-  #     - db
-  #   volumes:
-  #     - airflow-dags:/opt/airflow/dags
-  #     - airflow-logs:/opt/airflow/logs

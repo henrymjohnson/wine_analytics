@@ -2,6 +2,9 @@ import pandas as pd
 import requests
 from decouple import config
 
+# from src.data_ingestion.db_creation import update_timeseries_table
+
+
 fred_api_key = config('FRED_API_KEY')
 
 
@@ -59,3 +62,11 @@ def get_disposable_income_data(series_id=disp_inc_series_id):
     df['value'] = df['value'].astype(float)
     df.rename(columns={'value': 'disposable_income_amount'}, inplace=True)
     return df
+
+
+# # update demographics table to have population size and disposable income
+# update_timeseries_table('demographics', get_population_data(), ['population_size'])
+# update_timeseries_table('demographics', get_disposable_income_data(), ['disposable_income_amount'])
+# # update prices table to have ppi and avg wine price
+# update_timeseries_table('prices', get_ppi_data(), ['producer_price_index_us'])
+# update_timeseries_table('prices', get_average_wine_price_data(), ['average_wine_price_us'])

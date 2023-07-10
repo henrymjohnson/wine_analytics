@@ -4,6 +4,8 @@ import datetime
 import openpyxl
 import logging
 
+# from src.data_ingestion.db_creation import update_timeseries_table
+
 
 logging.basicConfig(filename='app.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s')
 
@@ -153,6 +155,11 @@ wine_production = combine_multiple_wine_production_series(df1=process_recent_dat
 
 # get wine production data
 def get_wine_production():
+    wine_production = combine_multiple_wine_production_series(df1=process_recent_data(), df2=archived_data_from_2007_to_2010, df3=archived_wine_production_before_2008)
     result = wine_production.reset_index()
     result.rename(columns={'production': 'wine_production_us', 'month': 'date'}, inplace=True)
     return result
+
+
+# update the wine production table
+# update_timeseries_table('production', get_wine_production(), ['wine_production_us'])

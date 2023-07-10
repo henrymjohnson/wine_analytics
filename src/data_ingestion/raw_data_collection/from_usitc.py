@@ -1,6 +1,8 @@
 import pandas as pd
 import re
 
+# from src.data_ingestion.db_creation import update_imports_panel_data, update_exports_panel_data
+
 
 # convert wide format to long format
 def _wide_to_long(df, year):
@@ -72,3 +74,14 @@ def get_usitc_data(file_path):
     final_df.drop(columns=['Quantity Description'], inplace=True)
     
     return table_name, final_df
+
+
+# update panel data with new usitc data
+# imports_file_path = '/app/data/USITC/dataweb-queryExport-20230609.xlsx'
+# update_imports_panel_data(get_usitc_data(imports_file_path)[1])
+
+# imports_all_countries_file_path = '/app/data/USITC/dataweb-queryExport-20230611.xlsx'
+# update_imports_panel_data(get_usitc_data(imports_all_countries_file_path)[1])
+
+# exports_all_countries_file_path = '/app/data/USITC/dataweb-queryExport-20230611-exports.xlsx'
+# update_exports_panel_data(get_usitc_data(exports_all_countries_file_path)[1])
