@@ -27,7 +27,6 @@ wine_research/
 │ │ └──raw_data_collection/
 │ ├── data_modeling/
 │ ├── data_visualization/
-│ ├── scripts/
 │ ├── sql/
 │ └── web/
 └──── wineflow/
