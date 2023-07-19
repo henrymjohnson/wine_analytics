@@ -10,4 +10,5 @@ python-decouple==3.1
 psycopg2-binary
 pdfminer
 pdfminer.six
+pytest
 # apache-airflow[slim]==2.6.1

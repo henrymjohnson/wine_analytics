@@ -4,6 +4,8 @@ import psycopg2
 from psycopg2.extensions import register_adapter, AsIs
 from decouple import config
 
+from src.data_ingestion.raw_data_collection.from_thin_air import get_retaliatory_wine_tariff_months
+
 
 # create timeseries table if it doesn't already exist
 def update_timeseries_table(table_name, df, columns):
@@ -372,3 +374,7 @@ def update_exports_panel_data(df):
             connection.commit()
 
     connection.close()
+
+
+def update_retaliatory_wine_tariffs():
+    update_timeseries_table('prices', get_retaliatory_wine_tariff_months(), ['retaliatory_wine_tariffs'])

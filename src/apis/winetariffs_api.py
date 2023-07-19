@@ -1,19 +1,22 @@
 from flask import Flask, jsonify, request
+# from flask_restful import Resource, Api
 import logging
 from flask_cors import CORS
 
-from src.data_ingestion.wine_prices import average_wine_prices, ppi
-from src.data_ingestion.demographics import population, disposable_income
-from src.data_ingestion.trade_flows import imports_panel_data, imports_panel_data_all_countries
-from src.data_ingestion.domestic_production import wine_production
+# from src.apis.demographics import Prices
+# from src.data_ingestion.wine_prices import average_wine_prices, ppi
+# from src.data_ingestion.demographics import population, disposable_income
+# from src.data_ingestion.trade_flows import imports_panel_data, imports_panel_data_all_countries
+# from src.data_ingestion.domestic_production import wine_production
 
 
 app = Flask(__name__, static_folder='/app/src/web', static_url_path='/')
+# api = Api(app)
 CORS(app, origins='http://localhost:8080')
 
-app.logger.setLevel(logging.ERROR)
+app.logger.setLevel(logging.INFO)
 handler = logging.StreamHandler()
-handler.setLevel(logging.ERROR)
+handler.setLevel(logging.INFO)
 app.logger.addHandler(handler)
 
 @app.route("/info", methods=["GET"])
@@ -21,51 +24,54 @@ def information():
     data = {"message": "Information!"}
     return jsonify(data)
 
-@app.route("/prices", methods=["GET"])
+# api.add_resource(Prices, '/prices')
+
+@app.route("/prices2", methods=["GET"])
 def avg_wine_prices():
-    data = average_wine_prices.copy()
-    data.columns = ['date', 'average_wine_price_us']
-    data_dict = data.to_dict(orient='records')
-    return jsonify(data_dict)
+    # data = average_wine_prices.copy()
+    # data.columns = ['date', 'average_wine_price_us']
+    # data_dict = data.to_dict(orient='records')
+    # return jsonify(data_dict)
+    return {"message": "hello worldly folks"}
 
-@app.route("/demographics", methods=["GET"])
-def demographics():
-    type = request.args.get('type')
+# @app.route("/demographics", methods=["GET"])
+# def demographics():
+#     type = request.args.get('type')
 
-    if type == 'population':
-        data = population.copy()
-        data.columns = ['date', 'population_size']
-        data_dict = data.to_dict(orient='records')
-        return jsonify(data_dict)
-    elif type == 'disposable_income':
-        data = disposable_income.copy()
-        data.columns = ['date', 'disposable_income_amount']
-        data_dict = data.to_dict(orient='records')
-        return jsonify(data_dict)
-    else:
-        return jsonify({"error": "Invalid type parameter"}), 400
+#     if type == 'population':
+#         data = population.copy()
+#         data.columns = ['date', 'population_size']
+#         data_dict = data.to_dict(orient='records')
+#         return jsonify(data_dict)
+#     elif type == 'disposable_income':
+#         data = disposable_income.copy()
+#         data.columns = ['date', 'disposable_income_amount']
+#         data_dict = data.to_dict(orient='records')
+#         return jsonify(data_dict)
+#     else:
+#         return jsonify({"error": "Invalid type parameter"}), 400
 
-@app.route("/production", methods=["GET"])
-def get_wine_production():
-    df = wine_production.copy()
-    df.columns = ['date', 'wine_production_us']
-    data_dict = df.to_dict(orient='records')
-    return jsonify(data_dict)
+# @app.route("/production", methods=["GET"])
+# def get_wine_production():
+    # df = wine_production.copy()
+    # df.columns = ['date', 'wine_production_us']
+    # data_dict = df.to_dict(orient='records')
+    # return jsonify(data_dict)
 
-@app.route("/trade_flows", methods=["GET"])
-def get_trade_flows():
-    type = request.args.get('type')
+# @app.route("/trade_flows", methods=["GET"])
+# def get_trade_flows():
+#     type = request.args.get('type')
 
-    if type is None:
-        df = imports_panel_data[0].copy()
-        data_dict = df.to_dict(orient='records')
-        return jsonify(data_dict)
-    elif type == 'all':
-        df = imports_panel_data_all_countries[0].copy()
-        data_dict = df.to_dict(orient='records')
-        return jsonify(data_dict)
-    else:
-        return jsonify({"error": "Invalid type parameter"}), 400
+#     if type is None:
+#         df = imports_panel_data[0].copy()
+#         data_dict = df.to_dict(orient='records')
+#         return jsonify(data_dict)
+#     elif type == 'all':
+#         df = imports_panel_data_all_countries[0].copy()
+#         data_dict = df.to_dict(orient='records')
+#         return jsonify(data_dict)
+#     else:
+#         return jsonify({"error": "Invalid type parameter"}), 400
 
 
 @app.route("/", methods=["GET"])

@@ -1,4 +1,4 @@
-axios.get('http://localhost:8080/prices')
+axios.get('http://localhost:8080/prices2')
     .then(response => {
         const responseData = response.data;
 

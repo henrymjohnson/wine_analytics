@@ -21,14 +21,15 @@ wine_research/
 │ ├── FRED/
 │ ├── TTB/
 │ └── USITC/
-└── src/
-  ├── apis/
-  ├── data_ingestion/
-  ├── data_modeling/
-  ├── data_visualization/
-  ├── scripts/
-  ├── sql/
-  └── web/
+├── src/
+│ ├── apis/
+│ ├── data_ingestion/
+│ │ └──raw_data_collection/
+│ ├── data_modeling/
+│ ├── data_visualization/
+│ ├── sql/
+│ └── web/
+└──── wineflow/
 ```
 
 - `data/`: Contains various data directories including raw data, archive data, and data from different sources.
