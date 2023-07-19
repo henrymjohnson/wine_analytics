@@ -1,5 +1,5 @@
 from src.data_ingestion.raw_data_collection.from_fred import get_average_wine_price_data, get_ppi_data
-from src.data_ingestion.db_changes import update_timeseries_table
+from src.data_ingestion.db_creation import update_timeseries_table
 
 
 average_wine_prices = get_average_wine_price_data()
